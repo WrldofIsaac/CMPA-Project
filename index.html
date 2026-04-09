@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrackWave</title>
+    <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -46,8 +47,10 @@
   </style>
 </head>
 <body>
+
   <header>
     <h1>TrackWave</h1>
+    <button id="themeToggle" class="button">🌙 Dark Mode</button>
   </header>
 
   <main>
@@ -63,5 +66,21 @@
   <footer>
     <p>Created for semester project setup</p>
   </footer>
+
+
+
+   <script>
+    const toggleBtn = document.getElementById("themeToggle");
+
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+
+      if (document.body.classList.contains("light-mode")) {
+        toggleBtn.textContent = "☀️ Light Mode";
+      } else {
+        toggleBtn.textContent = "🌙 Dark Mode";
+      }
+    });
+  </script>
 </body>
 </html>
