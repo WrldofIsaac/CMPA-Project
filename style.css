@@ -1,57 +1,88 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  background: #131313;
-  color: #222;
+  background: #121212;
+  color: white;
 }
 
 header {
-  background: #3899b1;
-  color: white;
-  padding: 2rem;
+  background: #0d1b2a;
+  padding: 1.5rem;
   text-align: center;
-}
-
-main {
-  max-width: 800px;
-  margin: 2rem auto;
-  background: #2c2c2c;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-h1, h2 {
-  margin-top: 0;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  color: #666;
 }
 
 .button {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.25rem;
-  background: #3899b1;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #1b263b;
   color: white;
-  text-decoration: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-container {
+  text-align: center;
+  margin: 20px;
+}
+
+#searchInput {
+  width: 80%;
+  padding: 10px;
   border-radius: 8px;
+  border: none;
 }
 
-/* Light Mode Styles */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  border: none;
+  background: #1b263b;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.tab.active {
+  background: #415a77;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.card {
+  background: #1e1e1e;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* Light Mode */
 body.light-mode {
-  background: #f4f4f4;
-  color: #222;
+  background: #f5f5f5;
+  color: black;
 }
 
-body.light-mode main {
+body.light-mode .card {
   background: white;
 }
 
 body.light-mode header {
-  background: #2c7a8a;
+  background: #ccc;
 }

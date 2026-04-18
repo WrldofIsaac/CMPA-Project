@@ -1,86 +1,87 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrackWave</title>
-    <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #131313;
-      color: #222;
-    }
-    header {
-      background: #3899b1;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-    }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: #2c2c2c;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    h1, h2 {
-      margin-top: 0;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      color: #666;
-    }
-    .button {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.75rem 1.25rem;
-      background: #3899b1;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>TrackWave</h1>
-    <button id="themeToggle" class="button">🌙 Dark Mode</button>
-  </header>
+<header>
+  <h1>TrackWave</h1>
+  <button id="themeToggle" class="button">🌙 Dark Mode</button>
+</header>
 
-  <main>
-    <h2>Welcome</h2>
-    <p>This is the basic starter page for my semester project. It will be expanded with more content, styling, and features as the project develops.</p>
+<!-- Search Bar -->
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search songs, products, sounds..." />
+</div>
 
-    <h2>Project Goal</h2>
-    <p>The goal of this project is to create a clean and useful website that shares event details, resources, and media in an easy-to-use format.</p>
+<Tabs>
+<div class="tabs">
+  <button class="tab active" onclick="openTab('songs')">Songs</button>
+  <button class="tab" onclick="openTab('products')">Products</button>
+  <button class="tab" onclick="openTab('sounds')">Sounds</button>
+</div>
 
-    <a href="#" class="button">Coming Soon</a>
-  </main>
+<main>
+  <!-- Songs -->
+  <div id="songs" class="tab-content active">
+    <div class="card">New Releases</div>
+    <div class="card">Artist</div>
+    <div class="card">Top songs</div>
+  </div>
 
-  <footer>
-    <p>Created for semester project setup</p>
-  </footer>
+  <!-- Products -->
+  <div id="products" class="tab-content">
+    <div class="card">Tracks</div>
+    <div class="card">General Pads Pack</div>
+    <div class="card">Guitar Tone Bundle</div>
+  </div>
 
+  <!-- Sounds -->
+  <div id="sounds" class="tab-content">
+    <div class="card">Ambient Pads </div>
+    <div class="card">Loops </div>
+    <div class="card">Templates </div>
+  </div>
+</main>
 
+<script>
+// Theme toggle
+const toggleBtn = document.getElementById("themeToggle");
 
-   <script>
-    const toggleBtn = document.getElementById("themeToggle");
+toggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
 
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
+  toggleBtn.textContent = document.body.classList.contains("light-mode")
+    ? "☀️ Light Mode"
+    : "🌙 Dark Mode";
+});
 
-      if (document.body.classList.contains("light-mode")) {
-        toggleBtn.textContent = "☀️ Light Mode";
-      } else {
-        toggleBtn.textContent = "🌙 Dark Mode";
-      }
-    });
-  </script>
-</body>
+// Tabs
+function openTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+
+  document.getElementById(tabName).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Search functionality
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup", function () {
+  const filter = searchInput.value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(filter) ? "block" : "none";
+  });
+});
+</script>
+
 </html>
