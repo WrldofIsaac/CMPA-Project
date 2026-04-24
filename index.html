@@ -21,48 +21,53 @@
 
 <Tabs>
 <div class="tabs">
-  <button class="tab active" onclick="openTab('songs')">Songs</button>
-  <button class="tab" onclick="openTab('products')">Products</button>
-  <button class="tab" onclick="openTab('sounds')">Sounds</button>
+  <button class="tab active" onclick="openTab(event, 'songs')">Songs</button>
+  <button class="tab" onclick="openTab(event, 'products')">Products</button>
+  <button class="tab" onclick="openTab(event, 'sounds')">Sounds</button>
 </div>
 
 <main>
-  <!-- Songs -->
   <div id="songs" class="tab-content active">
-    <div class="card">New Releases</div>
-    <div class="card">Artist</div>
-    <div class="card">Top songs</div>
+    <div class="card" onclick="openModal('New Releases - Latest trending music drops.')">New Releases</div>
+    <div class="card" onclick="openModal('Artist - Explore top artists and their tracks.')">Artist</div>
+    <div class="card" onclick="openModal('Top Songs - Most popular songs right now.')">Top Songs</div>
   </div>
 
-  <!-- Products -->
   <div id="products" class="tab-content">
-    <div class="card">Tracks</div>
-    <div class="card">General Pads Pack</div>
-    <div class="card">Guitar Tone Bundle</div>
+    <div class="card" onclick="openModal('Tracks - High quality music tracks available.')">Tracks</div>
+    <div class="card" onclick="openModal('Pads Pack - Ambient pad sounds for producers.')">General Pads Pack</div>
+    <div class="card" onclick="openModal('Guitar Bundle - Premium guitar tones.')">Guitar Tone Bundle</div>
   </div>
 
-  <!-- Sounds -->
   <div id="sounds" class="tab-content">
-    <div class="card">Ambient Pads </div>
-    <div class="card">Loops </div>
-    <div class="card">Templates </div>
+    <div class="card" onclick="openModal('Ambient Pads - Soft background textures.')">Ambient Pads</div>
+    <div class="card" onclick="openModal('Loops - Ready-to-use sound loops.')">Loops</div>
+    <div class="card" onclick="openModal('Templates - Pre-built project templates.')">Templates</div>
   </div>
 </main>
 
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <p id="modalText"></p>
+  </div>
+</div>
+
 <script>
-// Theme toggle Button
+
+// Theme toggle
 const toggleBtn = document.getElementById("themeToggle");
 
 toggleBtn.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
-
   toggleBtn.textContent = document.body.classList.contains("light-mode")
     ? "☀️ Light Mode"
     : "🌙 Dark Mode";
 });
 
 // Tabs
-function openTab(tabName) {
+function openTab(event, tabName) {
   document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
 
@@ -70,7 +75,7 @@ function openTab(tabName) {
   event.target.classList.add('active');
 }
 
-// Search functionality
+// Search
 const searchInput = document.getElementById("searchInput");
 
 searchInput.addEventListener("keyup", function () {
@@ -82,6 +87,23 @@ searchInput.addEventListener("keyup", function () {
     card.style.display = text.includes(filter) ? "block" : "none";
   });
 });
+
+// Modal
+function openModal(text) {
+  document.getElementById("modalText").textContent = text;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("modal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+}
 </script>
 
 </html>
