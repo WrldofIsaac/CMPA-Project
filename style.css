@@ -127,6 +127,30 @@ body.light-mode header {
   background: #ddd;
 }
 
+body.light-mode .tab {
+  background: #ddd;
+  color: black;
+}
+
+body.light-mode .tab.active {
+  background: #bbb;
+}
+
+body.light-mode .card {
+  background: white;
+  color: black;
+}
+
+body.light-mode .search-results {
+  background: white;
+  color: black;
+}
+
+body.light-mode .modal-content {
+  background: white;
+  color: black;
+}
+
 /* Modal */
 .modal {
   display: none;
@@ -155,7 +179,8 @@ body.light-mode header {
   font-size: 20px;
 }
 
-<!-- Login --!>
+/* Login */
+
 .auth-container {
   text-align: center;
   margin: 20px;

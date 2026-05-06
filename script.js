@@ -1,5 +1,8 @@
 const API_URL = "http://localhost:3000";
 
+// =======================
+// 🔐 AUTH (FIXED - GLOBAL)
+// =======================
 async function register() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
@@ -31,132 +34,174 @@ async function login() {
   }
 }
 
-const searchInput = document.getElementById("searchInput");
-const resultsBox = document.getElementById("searchResults");
+// =======================
+// 📑 TABS (FIXED)
+// =======================
+function openTab(evt, tabName) {
+  const tabContents = document.querySelectorAll(".tab-content");
+  const tabs = document.querySelectorAll(".tab");
 
-// Local fallback data
-const localData = [
-  { name: "New Releases", category: "Songs", desc: "Latest music drops" },
-  { name: "Artists", category: "Songs", desc: "Top creators" },
-  { name: "Top Songs", category: "Songs", desc: "Trending tracks" },
+  tabContents.forEach(tab => tab.classList.remove("active"));
+  tabs.forEach(tab => tab.classList.remove("active"));
 
-  { name: "Tracks", category: "Products", desc: "Studio-quality music" },
-  { name: "Pads Pack", category: "Products", desc: "Atmospheric textures" },
-  { name: "Guitar Bundle", category: "Products", desc: "Guitar tones" },
+  document.getElementById(tabName).classList.add("active");
+  evt.currentTarget.classList.add("active");
+}
 
-  { name: "Ambient Pads", category: "Sounds", desc: "Soft textures" },
-  { name: "Loops", category: "Sounds", desc: "Ready loops" },
-  { name: "Templates", category: "Sounds", desc: "DAW templates" }
-];
+// =======================
+// 🚀 MAIN APP
+// =======================
+document.addEventListener("DOMContentLoaded", () => {
 
-// Debounce (prevents spam API calls)
-let timeout;
+  // =======================
+  // 🌙 THEME TOGGLE (FIXED)
+  // =======================
+  const themeToggle = document.getElementById("themeToggle");
 
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.trim().toLowerCase();
-
-  clearTimeout(timeout);
-
-  if (!query) {
-    resultsBox.style.display = "none";
-    resultsBox.innerHTML = "";
-    return;
+  // Load saved theme
+  if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+    themeToggle.textContent = "☀️ Light Mode";
   }
 
-  // 🔹 1. Show LOCAL results instantly
-  const localFiltered = localData.filter(item =>
-    item.name.toLowerCase().includes(query)
-  );
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
 
-  let html = "";
-
-  if (localFiltered.length > 0) {
-    html += `<div class="search-category">Quick Results</div>`;
-    localFiltered.forEach(item => {
-      html += `
-        <div class="search-item" onclick="selectResult('${item.desc}')">
-          ${item.name}
-        </div>
-      `;
-    });
-  }
-
-  // Show immediately (fast UX)
-  resultsBox.innerHTML = html;
-  resultsBox.style.display = "block";
-
-  // 🔹 2. Fetch API results AFTER delay
-  timeout = setTimeout(async () => {
-    try {
-      const res = await fetch(`https://itunes.apple.com/search?term=${query}&media=music&limit=5`);
-      const apiData = await res.json();
-      console.log(apiData);
-
-      if (apiData.results.length > 0) {
-        let apiHTML = `<div class="search-category">Songs</div>`;
-
-       apiData.results.forEach(song => {
-  if (!song.previewUrl) return; // ✅ skip broken audio
-
-  apiHTML += `
-    <div class="search-item" onclick="playPreview('${song.previewUrl}', '${song.trackName}')">
-      
-      <img 
-        src="${song.artworkUrl100.replace('100x100','300x300')}" 
-        class="search-thumb"
-      />
-
-      <div class="search-info">
-        <div class="search-title">${song.trackName}</div>
-        <div class="search-artist">${song.artistName}</div>
-      </div>
-
-    </div>
-  `;
-});
-
-        resultsBox.innerHTML += apiHTML;
-      }
-
-    } catch (err) {
-      console.error("API error:", err);
+    if (document.body.classList.contains("light-mode")) {
+      themeToggle.textContent = "☀️ Light Mode";
+      localStorage.setItem("theme", "light");
+    } else {
+      themeToggle.textContent = "🌙 Dark Mode";
+      localStorage.setItem("theme", "dark");
     }
-  }, 400); // delay = smoother + fewer requests
+  });
+
+  // =======================
+  // 🔍 SEARCH SYSTEM
+  // =======================
+  const searchInput = document.getElementById("searchInput");
+  const resultsBox = document.getElementById("searchResults");
+
+  const localData = [
+    { name: "New Releases", category: "Songs", desc: "Latest music drops" },
+    { name: "Artists", category: "Songs", desc: "Top creators" },
+    { name: "Top Songs", category: "Songs", desc: "Trending tracks" },
+
+    { name: "Tracks", category: "Products", desc: "Studio-quality music" },
+    { name: "Pads Pack", category: "Products", desc: "Atmospheric textures" },
+    { name: "Guitar Bundle", category: "Products", desc: "Guitar tones" },
+
+    { name: "Ambient Pads", category: "Sounds", desc: "Soft textures" },
+    { name: "Loops", category: "Sounds", desc: "Ready loops" },
+    { name: "Templates", category: "Sounds", desc: "DAW templates" }
+  ];
+
+  let timeout;
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    clearTimeout(timeout);
+
+    if (!query) {
+      resultsBox.style.display = "none";
+      resultsBox.innerHTML = "";
+      return;
+    }
+
+    // Local results
+    const localFiltered = localData.filter(item =>
+      item.name.toLowerCase().includes(query)
+    );
+
+    let html = "";
+
+    if (localFiltered.length > 0) {
+      html += `<div class="search-category">Quick Results</div>`;
+      localFiltered.forEach(item => {
+        html += `
+          <div class="search-item" onclick="selectResult('${item.desc}')">
+            ${item.name}
+          </div>
+        `;
+      });
+    }
+
+    resultsBox.innerHTML = html;
+    resultsBox.style.display = "block";
+
+    // API results (delayed)
+    timeout = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://itunes.apple.com/search?term=${query}&media=music&limit=5`);
+        const apiData = await res.json();
+
+        if (apiData.results.length > 0) {
+          let apiHTML = `<div class="search-category">Songs</div>`;
+
+          apiData.results.forEach(song => {
+            if (!song.previewUrl) return;
+
+            apiHTML += `
+              <div class="search-item" onclick="playPreview('${song.previewUrl}', '${song.trackName}')">
+                
+                <img 
+                  src="${song.artworkUrl100.replace('100x100','300x300')}" 
+                  class="search-thumb"
+                />
+
+                <div class="search-info">
+                  <div class="search-title">${song.trackName}</div>
+                  <div class="search-artist">${song.artistName}</div>
+                </div>
+
+              </div>
+            `;
+          });
+
+          resultsBox.innerHTML += apiHTML;
+        }
+
+      } catch (err) {
+        console.error("API error:", err);
+      }
+    }, 400);
+  });
+
+  // Close dropdown
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-box")) {
+      resultsBox.style.display = "none";
+    }
+  });
+
 });
 
-// Play preview when clicking API result
+// =======================
+// 🎵 GLOBAL FUNCTIONS
+// =======================
 function playPreview(url, title) {
   openModal(`
     <strong>Now Playing:</strong><br>${title}<br><br>
     <audio controls autoplay>
       <source src="${url}" type="audio/mpeg">
-      Your browser does not support audio.
     </audio>
   `);
 
-  resultsBox.style.display = "none";
-  searchInput.value = "";
+  document.getElementById("searchResults").style.display = "none";
+  document.getElementById("searchInput").value = "";
 }
 
-// Local result click
 function selectResult(text) {
   openModal(text);
-  resultsBox.style.display = "none";
-  searchInput.value = "";
+  document.getElementById("searchResults").style.display = "none";
+  document.getElementById("searchInput").value = "";
 }
-
-// Close dropdown
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".search-box")) {
-    resultsBox.style.display = "none";
-  }
-});
-
 
 function openModal(content) {
-  document.getElementById("modalText").innerHTML = content; // 
+  document.getElementById("modalText").innerHTML = content;
   document.getElementById("modal").style.display = "flex";
 }
+
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
