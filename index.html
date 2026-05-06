@@ -1,50 +1,83 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrackWave</title>
+  <title>TrackWave | Music & Sound Platform</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>TrackWave</h1>
+  <h1>🎧 TrackWave</h1>
+  <p class="tagline">Discover sounds. Create vibes.</p>
   <button id="themeToggle" class="button">🌙 Dark Mode</button>
 </header>
 
-<!-- Search Bar -->
-<div class="search-container">
-  <input type="text" id="searchInput" placeholder="Search songs, products, sounds..." />
-</div>
+<!-- Login -->
+<div class="auth-container">
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
 
-<Tabs>
+  <button onclick="register()">Register</button>
+  <button onclick="login()">Login</button>
+
+  <p id="authMessage"></p>
+</div>
+<!-- Hero Section -->
+<section class="hero">
+  <h2>Your Ultimate Sound Library</h2>
+  <p>Explore trending music, premium sound packs, and creative audio tools—all in one place.</p>
+</section>
+
+<!-- Search -->
+<div class="search-container">
+  <div class="search-box">
+    <input 
+      type="text" 
+      id="searchInput" 
+      placeholder="🔍 Search songs, products, sounds..."
+      autocomplete="off"
+    />
+    <div id="searchResults" class="search-results"></div>
+  </div>
+</div>
+<!-- Tabs -->
 <div class="tabs">
   <button class="tab active" onclick="openTab(event, 'songs')">Songs</button>
   <button class="tab" onclick="openTab(event, 'products')">Products</button>
   <button class="tab" onclick="openTab(event, 'sounds')">Sounds</button>
 </div>
 
+<script src="script.js"></script>
+<div id="songs"></div>
 <main>
+  <!-- SONGS -->
   <div id="songs" class="tab-content active">
-    <div class="card" onclick="openModal('New Releases - Latest trending music drops.')">New Releases</div>
-    <div class="card" onclick="openModal('Artist - Explore top artists and their tracks.')">Artist</div>
-    <div class="card" onclick="openModal('Top Songs - Most popular songs right now.')">Top Songs</div>
+    <div class="card" onclick="openModal('🔥 New Releases: Stay updated with the latest music drops from top artists.')">New Releases</div>
+    <div class="card" onclick="openModal('🎤 Artists: Browse top creators and rising stars.')">Artists</div>
+    <div class="card" onclick="openModal('📈 Top Songs: Trending tracks everyone is listening to.')">Top Songs</div>
   </div>
 
+  <!-- PRODUCTS -->
   <div id="products" class="tab-content">
-    <div class="card" onclick="openModal('Tracks - High quality music tracks available.')">Tracks</div>
-    <div class="card" onclick="openModal('Pads Pack - Ambient pad sounds for producers.')">General Pads Pack</div>
-    <div class="card" onclick="openModal('Guitar Bundle - Premium guitar tones.')">Guitar Tone Bundle</div>
+    <div class="card" onclick="openModal('🎵 Tracks: Studio-quality music ready for your projects.')">Tracks</div>
+    <div class="card" onclick="openModal('🌊 Pads Pack: Atmospheric textures for producers.')">Pads Pack</div>
+    <div class="card" onclick="openModal('🎸 Guitar Bundle: Professional guitar tones.')">Guitar Bundle</div>
   </div>
 
+  <!-- SOUNDS -->
   <div id="sounds" class="tab-content">
-    <div class="card" onclick="openModal('Ambient Pads - Soft background textures.')">Ambient Pads</div>
-    <div class="card" onclick="openModal('Loops - Ready-to-use sound loops.')">Loops</div>
-    <div class="card" onclick="openModal('Templates - Pre-built project templates.')">Templates</div>
+    <div class="card" onclick="openModal('🌌 Ambient Pads: Soft textures for background vibes.')">Ambient Pads</div>
+    <div class="card" onclick="openModal('🔁 Loops: Ready-to-use loops for quick production.')">Loops</div>
+    <div class="card" onclick="openModal('📦 Templates: Pre-built DAW templates.')">Templates</div>
   </div>
 </main>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 TrackWave. All rights reserved.</p>
+</footer>
 
 <!-- Modal -->
 <div id="modal" class="modal">
@@ -55,8 +88,6 @@
 </div>
 
 <script>
-
-// Theme toggle
 const toggleBtn = document.getElementById("themeToggle");
 
 toggleBtn.addEventListener("click", () => {
@@ -66,7 +97,6 @@ toggleBtn.addEventListener("click", () => {
     : "🌙 Dark Mode";
 });
 
-// Tabs
 function openTab(event, tabName) {
   document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
@@ -75,7 +105,6 @@ function openTab(event, tabName) {
   event.target.classList.add('active');
 }
 
-// Search
 const searchInput = document.getElementById("searchInput");
 
 searchInput.addEventListener("keyup", function () {
@@ -88,7 +117,6 @@ searchInput.addEventListener("keyup", function () {
   });
 });
 
-// Modal
 function openModal(text) {
   document.getElementById("modalText").textContent = text;
   document.getElementById("modal").style.display = "flex";
@@ -106,4 +134,5 @@ window.onclick = function(event) {
 }
 </script>
 
+</body>
 </html>

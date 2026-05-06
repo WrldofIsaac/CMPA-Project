@@ -1,26 +1,44 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   background: #121212;
   color: white;
 }
 
+/* Header */
 header {
-  background: #0d1b2a;
-  padding: 1.5rem;
+  background: linear-gradient(135deg, #0d1b2a, #1b263b);
+  padding: 2rem;
   text-align: center;
 }
 
+.tagline {
+  opacity: 0.8;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Button */
 .button {
   margin-top: 10px;
   padding: 10px 15px;
-  background: #1b263b;
-  color: white;
+  background: #415a77;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  color: white;
 }
 
+/* Search */
 .search-container {
   text-align: center;
   margin: 20px;
@@ -28,34 +46,41 @@ header {
 
 #searchInput {
   width: 80%;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   border: none;
 }
 
+/* Tabs */
 .tabs {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 20px;
 }
 
 .tab {
   padding: 10px 20px;
-  border: none;
   background: #1b263b;
-  color: white;
-  cursor: pointer;
+  border: none;
   border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
 }
 
-.tab.active {
+.tab:hover {
   background: #415a77;
 }
 
+.tab.active {
+  background: #778da9;
+}
+
+/* Main */
 main {
   max-width: 900px;
   margin: auto;
+  padding: 10px;
 }
 
 .tab-content {
@@ -66,11 +91,26 @@ main {
   display: block;
 }
 
+/* Cards */
 .card {
   background: #1e1e1e;
-  margin: 10px;
-  padding: 15px;
-  border-radius: 10px;
+  margin: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: #2a2a2a;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  opacity: 0.7;
 }
 
 /* Light Mode */
@@ -84,10 +124,10 @@ body.light-mode .card {
 }
 
 body.light-mode header {
-  background: #ccc;
+  background: #ddd;
 }
 
-/* Modal styles */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -103,14 +143,111 @@ body.light-mode header {
 .modal-content {
   background: white;
   color: black;
-  padding: 20px;
+  padding: 25px;
   border-radius: 10px;
   max-width: 400px;
   text-align: center;
 }
 
 .close {
-  cursor: pointer;
   float: right;
+  cursor: pointer;
   font-size: 20px;
+}
+
+<!-- Login --!>
+.auth-container {
+  text-align: center;
+  margin: 20px;
+}
+
+.auth-container input {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 6px;
+  border: none;
+}
+
+/* Search Box */
+.search-box {
+  position: relative;
+  width: 80%;
+  margin: auto;
+}
+
+.search-results {
+  position: absolute;
+  top: 110%;
+  width: 100%;
+  background: #1e1e1e;
+  border-radius: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  z-index: 1000;
+}
+
+.search-item {
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.search-item:hover {
+  background: #2a2a2a;
+}
+
+.search-category {
+  font-size: 12px;
+  opacity: 0.6;
+  padding: 8px 12px 4px;
+}
+
+/* Light mode support */
+body.light-mode .search-results {
+  background: white;
+  color: black;
+}
+
+/* 🎵 Search Results Layout Upgrade */
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: 0.2s;
+}
+
+.search-item:hover {
+  background: #2a2a2a;
+}
+
+/* Album Art */
+.search-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Text */
+.search-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-title {
+  font-weight: 600;
+}
+
+.search-artist {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.search-item:hover .search-thumb {
+  transform: scale(1.05);
 }

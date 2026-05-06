@@ -1,0 +1,27 @@
+{
+  "name": "cmpa-project",
+  "version": "1.0.0",
+  "description": "TrackWave is a music platform that is an alternative to Multitracks. The catcher is, it is designed for all genres, instead of mainly worship music. It's a website where users can explore, upload, and access multitrack audio for different types of music like rap, r&b and many more. The goal is to  make this feel real and functional, so producers oridinary people or even musicians will find this super helpful and high-quality.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WrldofIsaac/CMPA-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/WrldofIsaac/CMPA-Project/issues"
+  },
+  "homepage": "https://github.com/WrldofIsaac/CMPA-Project#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  }
+}
