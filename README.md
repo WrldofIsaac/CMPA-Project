@@ -15,3 +15,8 @@ I used HTML, CSS and basic web design knowledge to build the structure of this w
 # How to visit?
 
 https://wrldofisaac.github.io/CMPA-Project/
+
+
+# What Changed from Project 01 to Project 2
+
+From Project 01 to Project 02, I made the project more interactive and added more features. In Project 01, everything was mostly basic and static, but in Project 02 I focused on making it feel more like a real app.I added a semi login system so users can enter a username and password, which made the project more functional. I also added an API for music, so it can show real data instead of just static content. Another big change was adding different tabs, which made it easier to navigate and organize the content.I also improved the overall organization of the app.
